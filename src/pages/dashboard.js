@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Geist, Geist_Mono } from "next/font/google";
 import PatientCounter from "../components/patientcounter";
 import PatientTips from "../components/patienttips";
-import { Geist, Geist_Mono } from "next/font/google";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,7 +38,7 @@ export default function Dashboard() {
 
       <section className="text-center py-20">
         <h2 className="text-3xl font-semibold mb-8">Admin Dashboard</h2>
-        <div className="flex flex-col sm:flex-row gap-6 justify-center">
+        <div className="flex flex-col sm:flex-row gap-6 justify-center mb-12">
           <Link href="/register">
             <button className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700">
               Register New Patient
@@ -50,19 +50,17 @@ export default function Dashboard() {
             </button>
           </Link>
         </div>
+
+        {/* Additional Dashboard Widgets */}
+        <div className="flex flex-col items-center gap-10">
+          <PatientCounter />
+          <PatientTips />
+        </div>
       </section>
 
       <footer className="bg-gray-800 text-white text-center py-6 mt-16">
         <p>© 2025 PatientTrack. Built with care for better care.</p>
       </footer>
-
-      {/* ✅ Scoped CSS for the logo image */}
-      <style jsx>{`
-        .logo img {
-          height: 48px;
-          object-fit: contain;
-        }
-      `}</style>
     </div>
   );
 }
