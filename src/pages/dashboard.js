@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import PatientCounter from "../components/PatientCounter";
+import PatientTips from "../components/PatientTips";
 import { Geist, Geist_Mono } from "next/font/google";
 
 const geistSans = Geist({
