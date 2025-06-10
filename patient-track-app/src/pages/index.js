@@ -41,7 +41,7 @@ export default function Home() {
         </p>
         <a href="#features">
 
-          <button className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition">
+          <button className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition"></button>
           <button className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-300">
             Explore Features
           </button>
@@ -121,8 +121,7 @@ export default function Home() {
         }
         .feature-image:hover {
           transform: scale(1.05);
-      {/* ✅ Internal CSS */}
-      <style jsx>{`
+        }
         .logo img {
           height: 48px;
         }

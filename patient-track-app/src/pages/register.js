@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-
+import RegisterMessage from "../components/RegisterMessage";
 export default function RegisterPage() {
   return (
     <div>

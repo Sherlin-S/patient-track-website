@@ -1,8 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import LoginMessage from "../components/LoginMessage";
 import { Geist, Geist_Mono } from "next/font/google";
-import PatientCounter from "@/components/PatientCounter";
-import PatientTips from "@/components/PatientTips";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,7 +13,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export default function Dashboard() {
+export default function Login() {
   return (
     <div className={`${geistSans.className} ${geistMono.className} font-sans`}>
       <header className="bg-white shadow">
@@ -36,31 +35,43 @@ export default function Dashboard() {
         </nav>
       </header>
 
-      <section className="text-center py-20">
-        <h2 className="text-3xl font-semibold mb-8">Admin Dashboard</h2>
-        <div className="flex flex-col sm:flex-row gap-6 justify-center mb-12">
-          <Link href="/register">
-            <button className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700">
-              Register New Patient
-            </button>
-          </Link>
-          <Link href="/patients">
-            <button className="bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700">
-              View Registered Patients
-            </button>
-          </Link>
-        </div>
-
-        {/* Additional Dashboard Widgets */}
-        <div className="flex flex-col items-center gap-10">
-          <PatientCounter />
-          <PatientTips />
-        </div>
+      <section className="max-w-md mx-auto mt-16 px-4">
+        <h2 className="text-3xl font-semibold text-center mb-6">Login</h2>
+        <form action="/dashboard" method="get" className="flex flex-col gap-4">
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            required
+            className="border border-gray-300 p-2 rounded"
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+            className="border border-gray-300 p-2 rounded"
+          />
+          <button
+            type="submit"
+            className="bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+          >
+            Login
+          </button>
+        </form>
       </section>
 
       <footer className="bg-gray-800 text-white text-center py-6 mt-16">
         <p>© 2025 PatientTrack. Built with care for better care.</p>
       </footer>
+
+      {/* ✅ Scoped CSS for logo image */}
+      <style jsx>{`
+        .logo img {
+          height: 48px;
+          object-fit: contain;
+        }
+      `}</style>
     </div>
   );
 }

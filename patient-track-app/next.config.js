@@ -1,4 +1,3 @@
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -7,7 +6,6 @@ const nextConfig = {
       "www.logopeople.in",
       "interhospi.com",
       "www.shutterstock.com",
-
       "www.ripplesiot.com",
       "www.ripplesiot.com"
     ],

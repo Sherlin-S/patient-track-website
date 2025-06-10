@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
-import PatientCounter from "@/components/PatientCounter";
-import PatientTips from "@/components/PatientTips";
+import PatientCounter from '../components/PatientCounter'
+import PatientTips from '../components/PatientTips'
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
