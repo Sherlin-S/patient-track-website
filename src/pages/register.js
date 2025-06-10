@@ -1,7 +1,41 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
+  const [formData, setFormData] = useState({
+    fullname: "",
+    age: "",
+    gender: "",
+    contact: "",
+    email: "",
+  });
+  const [message, setMessage] = useState("");
+  const router = useRouter();
+
+  const handleChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const existing = JSON.parse(localStorage.getItem("patients") || "[]");
+    existing.push(formData);
+    localStorage.setItem("patients", JSON.stringify(existing));
+
+    setMessage("✅ Patient registered successfully!");
+
+    setTimeout(() => {
+      router.push("/dashboard");
+    }, 2000);
+  };
+
   return (
     <div>
       <header>
@@ -25,9 +59,15 @@ export default function RegisterPage() {
 
       <section className="max-w-md mx-auto py-12 px-6">
         <h2 className="text-2xl font-semibold text-center mb-6">Register Patient</h2>
+
+        {message && (
+          <div className="text-green-600 text-center mb-4 font-medium">
+            {message}
+          </div>
+        )}
+
         <form
-          action="/dashboard"
-          method="get"
+          onSubmit={handleSubmit}
           className="flex flex-col gap-4 bg-gray-100 p-6 rounded-lg shadow-md"
         >
           <input
@@ -36,6 +76,8 @@ export default function RegisterPage() {
             placeholder="Full Name"
             required
             className="p-2 rounded border border-gray-300"
+            value={formData.fullname}
+            onChange={handleChange}
           />
           <input
             type="number"
@@ -44,6 +86,8 @@ export default function RegisterPage() {
             min="0"
             required
             className="p-2 rounded border border-gray-300"
+            value={formData.age}
+            onChange={handleChange}
           />
           <input
             type="text"
@@ -51,6 +95,8 @@ export default function RegisterPage() {
             placeholder="Gender"
             required
             className="p-2 rounded border border-gray-300"
+            value={formData.gender}
+            onChange={handleChange}
           />
           <input
             type="text"
@@ -58,6 +104,8 @@ export default function RegisterPage() {
             placeholder="Contact Number"
             required
             className="p-2 rounded border border-gray-300"
+            value={formData.contact}
+            onChange={handleChange}
           />
           <input
             type="email"
@@ -65,6 +113,8 @@ export default function RegisterPage() {
             placeholder="Email"
             required
             className="p-2 rounded border border-gray-300"
+            value={formData.email}
+            onChange={handleChange}
           />
           <button type="submit" className="bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
             Register
@@ -84,7 +134,6 @@ export default function RegisterPage() {
         <p>© 2025 PatientTrack. Built with care for better care.</p>
       </footer>
 
-      {/* ✅ Scoped CSS for the logo image */}
       <style jsx>{`
         .logo img {
           height: 48px;

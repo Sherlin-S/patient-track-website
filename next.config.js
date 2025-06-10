@@ -7,7 +7,6 @@ const nextConfig = {
       "www.logopeople.in",
       "interhospi.com",
       "www.shutterstock.com",
-
       "www.ripplesiot.com",
       "www.ripplesiot.com"
     ],

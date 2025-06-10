@@ -1,17 +1,13 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function PatientCounter() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    // Simulate fetching patient count from a server or localStorage
-    const interval = setInterval(() => {
-      // Fake incrementing counter as if patients are being registered
-      setCount((prev) => prev + Math.floor(Math.random() * 3));
-    }, 3000);
-
-    return () => clearInterval(interval);
+    const stored = localStorage.getItem("patients");
+    const patientList = stored ? JSON.parse(stored) : [];
+    setCount(patientList.length);
   }, []);
 
   return (
