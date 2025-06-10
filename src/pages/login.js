@@ -63,6 +63,14 @@ export default function Login() {
       <footer className="bg-gray-800 text-white text-center py-6 mt-16">
         <p>© 2025 PatientTrack. Built with care for better care.</p>
       </footer>
+
+      {/* ✅ Scoped CSS for logo image */}
+      <style jsx>{`
+        .logo img {
+          height: 48px;
+          object-fit: contain;
+        }
+      `}</style>
     </div>
   );
 }

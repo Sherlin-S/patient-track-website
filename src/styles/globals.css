@@ -64,9 +64,6 @@ nav ul li a {
   @apply text-white font-bold no-underline hover:underline;
 }
 
-.logo img {
-  @apply h-12;
-}
 
 /* Hero Section */
 .homes {
@@ -88,17 +85,6 @@ nav ul li a {
   @apply max-w-6xl mx-auto p-8;
 }
 
-.feature-grid {
-  @apply flex flex-wrap justify-between gap-8 text-center;
-}
-
-.feature-grid div {
-  @apply p-4 flex-1 min-w-[280px] hover:shadow-lg hover:-translate-y-1 transition-transform duration-300;
-}
-
-.feature-grid img {
-  @apply w-52 h-52 mb-4 object-cover;
-}
 
 /* Footer */
 footer {

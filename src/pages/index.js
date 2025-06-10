@@ -13,9 +13,7 @@ const geistMono = Geist_Mono({
 
 export default function Home() {
   return (
-    <div
-      className={`${geistSans.className} ${geistMono.className} font-sans`}
-    >
+    <div className={`${geistSans.className} ${geistMono.className} font-sans`}>
       <header className="bg-white shadow">
         <nav className="flex justify-between items-center p-4 max-w-7xl mx-auto">
           <div className="logo">
@@ -40,7 +38,7 @@ export default function Home() {
           Streamline hospital operations with real-time patient flow and status tracking.
         </p>
         <a href="#features">
-          <button className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">
+          <button className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-300">
             Explore Features
           </button>
         </a>
@@ -62,7 +60,7 @@ export default function Home() {
               alt="Real-Time Tracking"
               width={400}
               height={250}
-              className="mx-auto rounded"
+              className="feature-image"
             />
             <h3 className="text-xl font-semibold mt-4">Real-Time Updates</h3>
             <p className="mt-2">Monitor patient status instantly across departments.</p>
@@ -73,7 +71,7 @@ export default function Home() {
               alt="Admin Control"
               width={400}
               height={250}
-              className="mx-auto rounded"
+              className="feature-image"
             />
             <h3 className="text-xl font-semibold mt-4">Administrative Control</h3>
             <p className="mt-2">Centralized dashboard for efficient management.</p>
@@ -84,7 +82,7 @@ export default function Home() {
               alt="Reduced Wait Times"
               width={400}
               height={250}
-              className="mx-auto rounded"
+              className="feature-image"
             />
             <h3 className="text-xl font-semibold mt-4">Reduced Wait Times</h3>
             <p className="mt-2">Optimize patient flow to minimize delays.</p>
@@ -102,9 +100,20 @@ export default function Home() {
         </a>
       </section>
 
-      <footer className="bg-gray-800 text-white text-center py-6">
+      <footer className="bg-blue-200 text-gray-800 text-center py-6">
         <p>© 2025 PatientTrack. Built with care for better care.</p>
       </footer>
+
+      {/* ✅ Internal CSS */}
+      <style jsx>{`
+        .logo img {
+          height: 48px;
+        }
+        .feature-image {
+          border-radius: 0.5rem;
+          object-fit: cover;
+        }
+      `}</style>
     </div>
   );
 }
