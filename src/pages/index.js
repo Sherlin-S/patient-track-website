@@ -1,4 +1,4 @@
-// pages/index.js or app/page.js
+import AskDoubt from "../components/AskDoubt";
 import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
 
@@ -15,6 +15,7 @@ const geistMono = Geist_Mono({
 export default function Home() {
   return (
     <div className={`${geistSans.className} ${geistMono.className} font-sans`}>
+      {/* Header */}
       <header className="bg-white shadow">
         <nav className="flex justify-between items-center p-4 max-w-7xl mx-auto">
           <div className="logo">
@@ -26,21 +27,22 @@ export default function Home() {
               className="object-contain"
             />
           </div>
-          <ul className="flex gap-4 text-lg">
+          <ul className="flex gap-6 text-lg">
             <li><a href="#home" className="hover:underline">Home</a></li>
             <li><a href="/login" className="hover:underline">Login</a></li>
+            <li><a href="#ask-doubt" className="hover:underline">Ask Doubts</a></li>
           </ul>
         </nav>
       </header>
 
-      {/* Home Section */}
-      <section id="home" className="text-center py-20 bg-gradient-to-b from-blue-400 to-white">
+      {/* Hero Section */}
+      <section id="home" className="text-center py-20 bg-gray-50">
         <h1 className="text-4xl font-bold mb-4">Welcome to PatientTrack</h1>
         <p className="text-lg mb-6">
           Streamline hospital operations with real-time patient flow and status tracking.
         </p>
         <a href="#features">
-          <button className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-300">
+          <button className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-500 transition-all">
             Explore Features
           </button>
         </a>
@@ -94,32 +96,29 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Login Call-to-Action */}
+      {/* Login CTA */}
       <section id="login" className="py-20 text-center">
         <h2 className="text-3xl font-semibold mb-4">Access Your Account</h2>
         <p className="text-lg mb-6">Log in to manage patient flow or register new patients to get started!</p>
         <a href="/login">
-          <button className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
+          <button className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition-all">
             Login
           </button>
         </a>
       </section>
 
+      {/* Ask Doubts Section */}
+      <section id="ask-doubt" className="py-16 bg-white px-4 max-w-4xl mx-auto text-center">
+        <AskDoubt />
+      </section>
+
+      {/* Footer */}
       <footer className="bg-blue-200 text-gray-800 text-center py-6">
         <p>© 2025 PatientTrack. Built with care for better care.</p>
       </footer>
 
-      {/* Internal CSS using JSX style */}
+      {/* Internal CSS */}
       <style jsx>{`
-        .feature-image {
-          border-radius: 0.5rem;
-          object-fit: cover;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-          transition: transform 0.3s ease;
-        }
-        .feature-image:hover {
-          transform: scale(1.05);
-        }
         .logo img {
           height: 48px;
         }

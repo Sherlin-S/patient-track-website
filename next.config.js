@@ -1,5 +1,4 @@
-
-/** @type {import('next').NextConfig} */
+// next.config.js
 const nextConfig = {
   reactStrictMode: true,
   images: {
@@ -7,7 +6,6 @@ const nextConfig = {
       "www.logopeople.in",
       "interhospi.com",
       "www.shutterstock.com",
-      "www.ripplesiot.com",
       "www.ripplesiot.com"
     ],
   },
