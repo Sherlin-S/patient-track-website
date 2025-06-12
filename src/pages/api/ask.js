@@ -1,33 +1,24 @@
-// pages/api/ask.js
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Only POST requests allowed" });
   }
 
-  const { question } = req.body;
-  const apiKey = process.env.GEMINI_API_KEY;
-
-  if (!apiKey) {
-    return res.status(500).json({ error: "API key is missing." });
-  }
+  const { prompt } = req.body;
 
   try {
-    const response = await fetch(
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + apiKey,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: question }] }],
-        }),
-      }
-    );
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" }); // ✅ Correct model name
 
-    const data = await response.json();
-    const answer = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
 
-    res.status(200).json({ answer: answer || "No response from Gemini." });
+    res.status(200).json({ response: text });
   } catch (error) {
-    res.status(500).json({ error: "Failed to contact Gemini API." });
+    console.error("Gemini API error:", error);
+    res.status(500).json({ error: error.message });
   }
 }
