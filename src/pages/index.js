@@ -112,12 +112,13 @@ export default function Home() {
         <AskDoubt />
       </section>
 
-      {/* Footer */}
       <footer className="bg-blue-200 text-gray-800 text-center py-6">
         <p>© 2025 PatientTrack. Built with care for better care.</p>
       </footer>
 
       {/* Internal CSS */}
+
+      {/* ✅ Internal CSS */}
       <style jsx>{`
         .logo img {
           height: 48px;
