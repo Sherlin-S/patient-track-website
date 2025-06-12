@@ -1,3 +1,4 @@
+import AskDoubt from "../components/AskDoubt";
 import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
 
@@ -99,7 +100,7 @@ export default function Home() {
           </button>
         </a>
       </section>
-
+      <AskDoubt />
       <footer className="bg-blue-200 text-gray-800 text-center py-6">
         <p>© 2025 PatientTrack. Built with care for better care.</p>
       </footer>
