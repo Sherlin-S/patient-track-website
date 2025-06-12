@@ -29,6 +29,7 @@ export default function Home() {
           <ul className="flex gap-4 text-lg">
             <li><a href="#home" className="hover:underline">Home</a></li>
             <li><a href="/login" className="hover:underline">Login</a></li>
+            <li><a href="#ask-doubt" className="hover:underline">Ask Doubts</a></li>
           </ul>
         </nav>
       </header>
@@ -100,7 +101,13 @@ export default function Home() {
           </button>
         </a>
       </section>
-      <AskDoubt />
+
+      {/* ✅ Ask Doubts Section */}
+      <section id="ask-doubt" className="py-16 bg-white px-4 max-w-4xl mx-auto text-center">
+        <h2 className="text-3xl font-semibold mb-6">Ask Your Doubts</h2>
+        <AskDoubt />
+      </section>
+
       <footer className="bg-blue-200 text-gray-800 text-center py-6">
         <p>© 2025 PatientTrack. Built with care for better care.</p>
       </footer>
