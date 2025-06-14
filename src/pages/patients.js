@@ -2,13 +2,24 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { db } from "../../lib/firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 export default function PatientsPage() {
   const [patients, setPatients] = useState([]);
 
   useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem("patients") || "[]");
-    setPatients(stored);
+    const fetchPatients = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "patients"));
+        const patientList = querySnapshot.docs.map((doc) => doc.data());
+        setPatients(patientList);
+      } catch (error) {
+        console.error("Error fetching patients:", error);
+      }
+    };
+
+    fetchPatients();
   }, []);
 
   return (

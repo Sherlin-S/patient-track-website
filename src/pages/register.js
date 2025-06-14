@@ -1,9 +1,10 @@
+// pages/register.js
 "use client";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { db } from "../lib/firebase";
+import { db } from "../../lib/firebase";
 import { collection, addDoc } from "firebase/firestore";
 
 export default function RegisterPage() {
