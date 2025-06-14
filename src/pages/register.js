@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { db } from "../lib/firebase";
+import { collection, addDoc } from "firebase/firestore";
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -11,7 +13,9 @@ export default function RegisterPage() {
     gender: "",
     contact: "",
     email: "",
+    opip: "OP", // default
   });
+
   const [message, setMessage] = useState("");
   const router = useRouter();
 
@@ -22,18 +26,27 @@ export default function RegisterPage() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const existing = JSON.parse(localStorage.getItem("patients") || "[]");
-    existing.push(formData);
-    localStorage.setItem("patients", JSON.stringify(existing));
+    const patient = {
+      ...formData,
+      status: "Active",
+      discharged: false,
+      dischargeDetails: null,
+      createdAt: new Date(),
+    };
 
-    setMessage("✅ Patient registered successfully!");
-
-    setTimeout(() => {
-      router.push("/dashboard");
-    }, 2000);
+    try {
+      await addDoc(collection(db, "patients"), patient);
+      setMessage("✅ Patient registered and saved to Firebase!");
+      setTimeout(() => {
+        router.push("/dashboard");
+      }, 2000);
+    } catch (error) {
+      console.error("Error saving patient:", error);
+      setMessage("❌ Failed to register patient.");
+    }
   };
 
   return (
@@ -116,6 +129,16 @@ export default function RegisterPage() {
             value={formData.email}
             onChange={handleChange}
           />
+          <select
+            name="opip"
+            value={formData.opip}
+            onChange={handleChange}
+            className="p-2 rounded border border-gray-300"
+          >
+            <option value="OP">OP (Outpatient)</option>
+            <option value="IP">IP (Inpatient)</option>
+          </select>
+
           <button type="submit" className="bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
             Register
           </button>

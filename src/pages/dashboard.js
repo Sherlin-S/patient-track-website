@@ -32,6 +32,8 @@ export default function Dashboard() {
             <li><Link href="/" className="hover:underline">Home</Link></li>
             <li><Link href="/login" className="hover:underline">Login</Link></li>
             <li><Link href="/register" className="hover:underline">Register Patient</Link></li>
+            <li><Link href="/discharge">Discharge Patient</Link></li>
+
           </ul>
         </nav>
       </header>

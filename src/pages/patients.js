@@ -7,10 +7,8 @@ export default function PatientsPage() {
   const [patients, setPatients] = useState([]);
 
   useEffect(() => {
-    const stored = localStorage.getItem("patients");
-    if (stored) {
-      setPatients(JSON.parse(stored));
-    }
+    const stored = JSON.parse(localStorage.getItem("patients") || "[]");
+    setPatients(stored);
   }, []);
 
   return (
@@ -29,52 +27,53 @@ export default function PatientsPage() {
           <ul className="flex gap-6 text-lg">
             <li><Link href="/">Home</Link></li>
             <li><Link href="/login">Login</Link></li>
-            <li><Link href="/register">Register Patient</Link></li>
+            <li><Link href="/dashboard">Dashboard</Link></li>
           </ul>
         </nav>
       </header>
 
-      <section className="max-w-xl mx-auto text-center py-12 px-4">
-        <h2 className="text-2xl font-semibold mb-6">Registered Patients</h2>
-
-        <div className="space-y-4 text-left">
-          {patients.length === 0 ? (
-            <p className="text-gray-500">No patients registered yet.</p>
-          ) : (
-            patients.map((patient, index) => (
-              <div
-                key={index}
-                className="bg-white p-4 rounded shadow border border-gray-200"
-              >
-                <p><strong>Name:</strong> {patient.fullname}</p>
-                <p><strong>Age:</strong> {patient.age}</p>
-                <p><strong>Gender:</strong> {patient.gender}</p>
-                <p><strong>Contact:</strong> {patient.contact}</p>
-                <p><strong>Email:</strong> {patient.email}</p>
-              </div>
-            ))
-          )}
-        </div>
-
-        <div className="mt-8">
-          <Link href="/dashboard">
-            <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-              Back to Dashboard
-            </button>
-          </Link>
-        </div>
-      </section>
+      <div className="max-w-4xl mx-auto p-6">
+        <h2 className="text-2xl font-bold mb-4">Patient Details</h2>
+        <table className="w-full table-auto border-collapse">
+          <thead>
+            <tr className="bg-gray-200">
+              <th className="border px-4 py-2">Name</th>
+              <th className="border px-4 py-2">Age</th>
+              <th className="border px-4 py-2">Gender</th>
+              <th className="border px-4 py-2">Type</th>
+              <th className="border px-4 py-2">Status</th>
+              <th className="border px-4 py-2">Discharge Info</th>
+            </tr>
+          </thead>
+          <tbody>
+            {patients.map((p, idx) => (
+              <tr key={idx} className="text-center">
+                <td className="border px-4 py-2">{p.fullname}</td>
+                <td className="border px-4 py-2">{p.age}</td>
+                <td className="border px-4 py-2">{p.gender}</td>
+                <td className="border px-4 py-2">{p.opip || "-"}</td>
+                <td className="border px-4 py-2">
+                  {p.opip === "IP" ? (p.discharged ? "Discharged" : "Not Discharged") : "Active"}
+                </td>
+                <td className="border px-4 py-2">
+                  {p.discharged && p.dischargeDetails ? (
+                    <div>
+                      <p><strong>Reason:</strong> {p.dischargeDetails.reason}</p>
+                      <p><strong>Date:</strong> {p.dischargeDetails.date}</p>
+                    </div>
+                  ) : (
+                    "-"
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       <footer className="bg-gray-800 text-white text-center py-6 mt-12">
         <p>© 2025 PatientTrack. Built with care for better care.</p>
       </footer>
-
-      <style jsx>{`
-        .logo img {
-          height: 48px;
-          object-fit: contain;
-        }
-      `}</style>
     </div>
   );
 }
