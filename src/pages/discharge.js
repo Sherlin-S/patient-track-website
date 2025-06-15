@@ -3,34 +3,38 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { db } from "../../lib/firebase";
+import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
 
 export default function DischargePage() {
   const [patients, setPatients] = useState([]);
-  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [selectedId, setSelectedId] = useState("");
   const [reason, setReason] = useState("");
   const router = useRouter();
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("patients") || "[]");
-    setPatients(data);
+    const fetchPatients = async () => {
+      const querySnapshot = await getDocs(collection(db, "patients"));
+      const list = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setPatients(list);
+    };
+    fetchPatients();
   }, []);
 
-  const handleDischarge = () => {
-    if (selectedIndex === -1 || reason.trim() === "") return;
+  const handleDischarge = async () => {
+    if (!selectedId || reason.trim() === "") return;
 
-    const updated = [...patients];
-    updated[selectedIndex].discharged = true;
-    updated[selectedIndex].status = "Discharged";
-    updated[selectedIndex].dischargeDetails = {
-      reason,
-      date: new Date().toLocaleDateString(),
-    };
+    const docRef = doc(db, "patients", selectedId);
+    await updateDoc(docRef, {
+      discharged: true,
+      status: "Discharged",
+      dischargeDetails: {
+        reason,
+        date: new Date().toLocaleDateString()
+      }
+    });
 
-    localStorage.setItem("patients", JSON.stringify(updated));
-    setPatients(updated);
-    setReason("");
-    setSelectedIndex(-1);
-    alert("✅ Patient discharged.");
+    alert("✅ Patient discharged successfully");
     router.push("/patients");
   };
 
@@ -57,19 +61,20 @@ export default function DischargePage() {
 
       <div className="max-w-xl mx-auto p-6">
         <h2 className="text-2xl font-bold mb-4">Discharge a Patient</h2>
+
         <select
           className="w-full border p-2 mb-4 rounded"
-          value={selectedIndex}
-          onChange={(e) => setSelectedIndex(Number(e.target.value))}
+          value={selectedId}
+          onChange={(e) => setSelectedId(e.target.value)}
         >
-          <option value={-1}>Select Patient</option>
-          {patients.map((p, idx) =>
-            !p.discharged && p.opip === "IP" ? (
-              <option key={idx} value={idx}>
+          <option value="">Select Patient</option>
+          {patients
+            .filter(p => p.opip === "IP" && !p.discharged)
+            .map((p) => (
+              <option key={p.id} value={p.id}>
                 {p.fullname} ({p.opip})
               </option>
-            ) : null
-          )}
+            ))}
         </select>
 
         <textarea
